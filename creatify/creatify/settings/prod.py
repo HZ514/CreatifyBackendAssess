@@ -15,7 +15,7 @@ from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 
@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-vzkr8w4ew8l#iz@0+^pg2%%kg!_d#(lezcp#67$9$m2=9)h(9@
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -104,6 +105,44 @@ DATABASES = {
 }
 
 
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.isdir(LOG_DIR):
+    os.makedirs(LOG_DIR)
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'creatify': {
+            'format': '%(asctime)s %(levelname)s %(module)s.%(funcName)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'creatify': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'creatify_server.log'),
+            'maxBytes': 1024 * 1024 * 100,
+            'backupCount': 1,
+            'formatter': 'creatify',
+            'encoding': 'utf-8',
+        }
+    },
+    'loggers': {
+        'django.server': {
+            'handlers': ['creatify'],
+            'level': 'INFO',
+        },
+        'django.developer': {
+            'handlers': ['creatify'],
+            'level': 'INFO',
+        }
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -141,6 +180,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
