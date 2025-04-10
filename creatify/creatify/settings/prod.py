@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'user.middleware.EnforceJSONContentTypeMiddleware'
+    'creatify.middleware.enforce_json_content_middleware.EnforceJSONContentTypeMiddleware'
 ]
 
 REST_FRAMEWORK = {

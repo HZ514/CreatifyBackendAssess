@@ -6,6 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
+    # TODO: 可使用环境变量控制使用的配置文件
+
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creatify.settings.prod')
     try:
         from django.core.management import execute_from_command_line
