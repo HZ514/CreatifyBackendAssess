@@ -15,9 +15,6 @@ WORKDIR $APP_HOME
 # 将当前目录加入到工作目录中（. 表示当前目录）
 ADD . $APP_HOME
 
-# 收集静态文件
-RUN python manage.py collectstatic --noinput
-
 RUN /usr/local/bin/python -m pip install --upgrade pip
 
 # 安装项目依赖
