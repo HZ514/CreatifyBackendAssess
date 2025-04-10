@@ -26,8 +26,8 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 SECRET_KEY = 'django-insecure-vzkr8w4ew8l#iz@0+^pg2%%kg!_d#(lezcp#67$9$m2=9)h(9@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -54,13 +54,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'creatify.middleware.enforce_json_content_middleware.EnforceJSONContentTypeMiddleware'
+    'creatify.middleware.enforce_json_content_middleware.EnforceJSONContentTypeMiddleware',
+    # 'creatify.middleware.exception_middleware.CustomMiddleware'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
 }
 
 SIMPLE_JWT = {

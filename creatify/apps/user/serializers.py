@@ -14,7 +14,19 @@ class UserSerializer(serializers.ModelSerializer):
         required=True,
         style={'input_type': 'password'},
         min_length=1,
-        max_length=128
+        max_length=128,
+        error_messages={
+            'blank': '密码不能为空'
+        }
+    )
+    email = serializers.EmailField(
+        write_only=True,
+        required=True,
+        error_messages={
+            'blank': '邮箱不能为空',
+            'invalid': '请输入有效的邮箱地址'
+        },
+        style={'input_type': 'email'}
     )
 
     class Meta:
@@ -23,11 +35,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate_email(self, value):
         """验证邮箱格式和唯一性"""
-        try:
-            validate_email(value)
-        except ValidationError:
-            raise serializers.ValidationError("请输入有效的邮箱地址")
-
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("该邮箱已被注册")
         return value.lower()  # 统一转为小写

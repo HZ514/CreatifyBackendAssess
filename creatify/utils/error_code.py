@@ -1,6 +1,10 @@
 from typing import Dict, Optional
 # from django.utils.translation import gettext_lazy as _
 
+"""
+错误码设计类，可以定制的返回更友好的错误信息。
+"""
+
 
 class ErrorCode:
 
@@ -57,6 +61,15 @@ class APIErrors:
             http_status=409
         )
 
+        PERMISSION_DENIED = ErrorCode(
+            code='AUTH-1004',
+            message={
+                'zh': '没有操作权限',
+                'en': 'Permission denied'
+            },
+            http_status=403
+        )
+
     class Validation:
         MISSING_FIELD = ErrorCode(
             code='VALID-2001',
@@ -65,6 +78,43 @@ class APIErrors:
                 'en': 'Missing required field: {field}'
             },
             http_status=400
+        )
+
+        NOT_FOUND = ErrorCode(
+            code='VALID-2004',
+            message={
+                'zh': '资源不存在',
+                'en': 'Resource not found'
+            },
+            http_status=404
+        )
+
+        BAD_REQUEST = ErrorCode(
+            code='VALID-2005',
+            message={
+                'zh': '非法请求',
+                'en': 'Bad request'
+            },
+            http_status=400
+        )
+
+        DRF_VALIDATION_ERROR = ErrorCode(
+            code='VALID-2006',
+            message={
+                'zh': '数据验证失败',
+                'en': 'Validation error'
+            },
+            http_status=400
+        )
+
+    class System:
+        INTERNAL_ERROR = ErrorCode(
+            code='SYS-5001',
+            message={
+                'zh': '服务器内部错误',
+                'en': 'Internal server error'
+            },
+            http_status=500
         )
 
 

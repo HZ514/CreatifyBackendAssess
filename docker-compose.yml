@@ -4,7 +4,7 @@ services:
   web:
     build: ./creatify
     ports:
-      - "8555:8000"
+      - "8000:8000"
     volumes:
       - ./creatify:/var/www/html/creatify # 挂载项目代码
     restart: always
