@@ -20,7 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
         }
     )
     email = serializers.EmailField(
-        write_only=True,
         required=True,
         error_messages={
             'blank': '邮箱不能为空',
